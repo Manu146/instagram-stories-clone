@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+  background-color: hsl(0, 0%, 98%);
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+i {
+  font-size: inherit;
+  vertical-align: bottom;
+  line-height: inherit;
+}
