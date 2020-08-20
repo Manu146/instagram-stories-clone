@@ -38,7 +38,7 @@ const ArrowContainer = styled.button`
   background-color: white;
   color: rgba(220, 220, 220, 0.7);
   top: calc(50% - 0.625rem);
-  ${(props) => (props.content === "left" ? "left: 0" : "right: 0")};
+  ${(props) => (props.content === "left" ? "left: 0.5rem" : "right: 0.5rem")};
   z-index: 1;
   -webkit-box-shadow: 0px 0px 7px 0px rgba(38, 38, 38, 0.75);
   -moz-box-shadow: 0px 0px 7px 0px rgba(38, 38, 38, 0.75);

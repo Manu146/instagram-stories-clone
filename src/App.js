@@ -3,6 +3,17 @@ import "./App.css";
 import StoriesList from "./components/StoriesList";
 import StorieSlider from "./components/StorieSlider";
 import { MainContainer } from "./components/layout/Container";
+import styled from "styled-components";
+
+const InfoBox = styled.div`
+  padding: 1rem;
+  border: 1px solid hsl(0, 0%, 88%);
+  border-radius: 0.25rem;
+  background-color: white;
+  width: 60%;
+  position: relative;
+  margin-top: 1rem;
+`;
 
 function App() {
   const users = [
@@ -40,7 +51,18 @@ function App() {
           setUser={setUser}
           openFn={() => setOpen(true)}
         ></StoriesList>
-        <h2>To watch stories, click in one profile pic!</h2>
+        <InfoBox>
+          <h2>To watch stories, click on a profile pic!</h2>
+          <h3>On-storie interface:</h3>
+          <ul>
+            <li>Next and prev button to navigate user stories</li>
+            <li>
+              Pause the storie mantaining mouse button down. Un-pause storie by
+              realeasing mouse button
+            </li>
+            <li>Header showing username and user profile pic</li>
+          </ul>
+        </InfoBox>
       </MainContainer>
     </div>
   );
