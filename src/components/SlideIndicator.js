@@ -27,7 +27,7 @@ const IndicatorFiller = styled.div`
 
 function Indicator({ slide }) {
   const { progress, status } = slide;
-  let percentage = status == 0 ? 0 : status === 1 ? progress : 100;
+  let percentage = status === 0 ? 0 : status === 1 ? progress : 100;
   return (
     <IndicatorWrapper>
       <IndicatorFiller percentage={percentage}></IndicatorFiller>
