@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import DynamicComponent from "./DynamicComponent";
 
@@ -11,11 +11,20 @@ const Container = styled.div`
   margin: 0 auto;
   margin-top: 0.5rem;
 `;
-const Storie = React.forwardRef(({ storie, children }, ref) => {
+const Storie = React.forwardRef(({ storie, children, activeSlide }, ref) => {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+  }, [activeSlide]);
   return (
     <Container ref={ref}>
       {children}
-      {DynamicComponent(storie)}
+
+      <DynamicComponent
+        component={storie}
+        onLoad={() => setLoading(false)}
+        loading={loading}
+      ></DynamicComponent>
     </Container>
   );
 });

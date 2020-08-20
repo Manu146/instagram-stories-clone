@@ -57,6 +57,7 @@ export default function StorieSlider({ closeFn, selectedUser }) {
       progress: 0,
       type: "img",
       src: "./stories/1.jpg",
+      preview: "./stories/previews/1.svg",
     },
     {
       slideIndex: 2,
@@ -64,6 +65,7 @@ export default function StorieSlider({ closeFn, selectedUser }) {
       progress: 0,
       type: "img",
       src: "./stories/2.jpg",
+      preview: "./stories/previews/2.svg",
     },
     {
       slideIndex: 3,
@@ -71,6 +73,7 @@ export default function StorieSlider({ closeFn, selectedUser }) {
       progress: 0,
       type: "img",
       src: "./stories/3.jpg",
+      preview: "./stories/previews/3.svg",
     },
     {
       slideIndex: 4,
@@ -78,6 +81,7 @@ export default function StorieSlider({ closeFn, selectedUser }) {
       progress: 0,
       type: "img",
       src: "./stories/4.jpg",
+      preview: "./stories/previews/4.svg",
     },
   ]);
   const storieRef = useRef();
@@ -86,6 +90,7 @@ export default function StorieSlider({ closeFn, selectedUser }) {
   const [pause, setPause] = useState(false);
   useEventListener("mousedown", mouseHandler, storieRef.current);
   useEventListener("mouseup", mouseHandler);
+
   function mouseHandler() {
     setPause(!pause);
   }
@@ -159,7 +164,11 @@ export default function StorieSlider({ closeFn, selectedUser }) {
   }, [counter, pause]);
   return (
     <Wrapper>
-      <Storie storie={slides[activeSlide.current]} ref={storieRef}>
+      <Storie
+        storie={slides[activeSlide.current]}
+        ref={storieRef}
+        activeSlide={activeSlide}
+      >
         <StorieHeader user={selectedUser} />
         <CloseButton onClick={closeFn} className="material-icons">
           close
