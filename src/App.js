@@ -62,6 +62,7 @@ function App() {
             </li>
             <li>Header showing username and user profile pic</li>
           </ul>
+          <img src={process.env.PUBLIC_URL + "/a.jpg"} alt="" />
         </InfoBox>
       </MainContainer>
     </div>
