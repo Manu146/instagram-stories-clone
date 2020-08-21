@@ -6,7 +6,6 @@ import Spinner from "./layout/Spinner";
 
 const Container = styled.div`
   position: relative;
-  width: 100%;
   width: 358.88px;
   height: 638px;
   background-color: black;
@@ -21,8 +20,8 @@ const Storie = React.forwardRef(({ storie, children, active }, ref) => {
   return (
     <Container ref={ref}>
       {children}
+      {loading && <Spinner />}
       <ProgressiveImg storie={storie} callback={() => setLoading(false)} />
-      <Spinner />
     </Container>
   );
 });
