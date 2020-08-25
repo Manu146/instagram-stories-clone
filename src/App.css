@@ -17,3 +17,8 @@ i {
   vertical-align: bottom;
   line-height: inherit;
 }
+
+.heart {
+  font-size: 1rem;
+  color: rgba(255, 0, 0, 0.74);
+}

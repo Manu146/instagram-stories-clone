@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 0.5rem;
+  z-index: 3;
 `;
 
 const UserImg = styled.img`

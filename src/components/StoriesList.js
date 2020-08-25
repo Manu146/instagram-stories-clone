@@ -1,13 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import UserStories from "./UserStories";
+import { DefaultBox } from "./layout/DefaultBox";
 
-const Wrapper = styled.div`
-  padding: 1rem;
-  border: 1px solid hsl(0, 0%, 88%);
-  border-radius: 0.25rem;
-  background-color: white;
-  width: 60%;
+const Wrapper = styled(DefaultBox)`
   position: relative;
   overflow: hidden;
 `;
@@ -36,7 +32,9 @@ const ArrowContainer = styled.button`
   padding: 0;
   border: none;
   background-color: white;
-  color: rgba(220, 220, 220, 0.7);
+  color: rgb(220, 220, 220);
+  max-width: 24px;
+  max-height: 24px;
   top: calc(50% - 0.625rem);
   ${(props) => (props.content === "left" ? "left: 0.5rem" : "right: 0.5rem")};
   z-index: 1;

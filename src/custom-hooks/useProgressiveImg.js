@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const useProgressiveImg = (lowQualitySrc, highQualitySrc, callbackFn) => {
   const [src, setSrc] = React.useState(lowQualitySrc);
 
-  React.useEffect(() => {
-    console.log(highQualitySrc);
+  useEffect(() => {
     setSrc(lowQualitySrc);
 
     const img = new Image();
     img.src = highQualitySrc;
 
     img.onload = () => {
-      console.log("asd");
       callbackFn();
       setSrc(highQualitySrc);
     };

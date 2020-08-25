@@ -5,6 +5,7 @@ const Wrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 3;
   padding-top: 0.25rem;
   width: 100%;
   display: flex;
@@ -25,21 +26,25 @@ const IndicatorFiller = styled.div`
   width: ${(props) => props.percentage}%;
 `;
 
-function Indicator({ slide }) {
-  const { progress, status } = slide;
-  let percentage = status === 0 ? 0 : status === 1 ? progress : 100;
+function Indicator({ progress }) {
   return (
     <IndicatorWrapper>
-      <IndicatorFiller percentage={percentage}></IndicatorFiller>
+      <IndicatorFiller percentage={progress}></IndicatorFiller>
     </IndicatorWrapper>
   );
 }
 
-export default function SlideIndicator({ slides }) {
+export default function SlideIndicator({ slides, progress, activeSlide }) {
   return (
     <Wrapper>
       {slides.map((slide, index) => {
-        return <Indicator key={slide.slideIndex} slide={slide}></Indicator>;
+        return index < activeSlide ? (
+          <Indicator key={slide.slideIndex} progress={100} />
+        ) : index === activeSlide ? (
+          <Indicator key={slide.slideIndex} progress={progress} />
+        ) : (
+          <Indicator key={slide.slideIndex} progress={0} />
+        );
       })}
     </Wrapper>
   );
