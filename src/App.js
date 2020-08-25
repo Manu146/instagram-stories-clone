@@ -92,10 +92,7 @@ function App() {
               href="https://github.com/Manu146/instagram-stories-clone"
               target="_blank"
             >
-              <GitLogo
-                src="./instagram-stories-clone/github-logo.png"
-                alt="github logo"
-              />
+              <GitLogo src="./github-logo.png" alt="github logo" />
               <span>Link to github repo</span>
               <p>
                 Made with <i class="material-icons heart">favorite</i> by
