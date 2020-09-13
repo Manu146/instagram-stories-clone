@@ -75,11 +75,11 @@ function App() {
           ></StoriesList>
           <InfoBox>
             <h2>To watch stories, click on a profile pic!</h2>
-            <h3>On-storie interface:</h3>
+            <h3>On-story interface:</h3>
             <ul>
-              <li>Next and prev button to navigate user stories.</li>
+              <li>Next and prev button to navigate through user stories.</li>
               <li>
-                Pause the storie mantaining mouse button down. Un-pause storie
+                Pause the story by mantaining mouse button down. Un-pause story
                 by realeasing mouse button.
               </li>
               <li>Header showing username and user profile pic.</li>
