@@ -6,24 +6,10 @@ import Spinner from "./layout/Spinner";
 
 const Container = styled.div`
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  margin: 0;
-  @media (min-width: 1040px) {
-    width: 30vw;
-    max-width: 345px;
-    height: calc(30vw * 1.777);
-    max-height: 610.7px;
-  }
-  @media (min-width: 640px) {
-    width: 40vw;
-    height: calc(40vw * 1.777);
-    margin: 0 auto;
-    margin-top: 0.5rem;
-  }
+  width: 100%;
+  height: 100%;
 `;
-const Storie = React.forwardRef(({ story, children, setPause }, ref) => {
+const Story = React.forwardRef(({ story, children, setPause }, ref) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
@@ -44,4 +30,4 @@ const Storie = React.forwardRef(({ story, children, setPause }, ref) => {
   );
 });
 
-export default Storie;
+export default Story;
