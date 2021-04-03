@@ -31,6 +31,7 @@ const UserName = styled.span`
 
 const UserInfoWrapper = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export default function StoryHeader({ user, children }) {
