@@ -5,29 +5,24 @@ import ProgressiveImg from "./ProgressiveImg";
 import Spinner from "./layout/Spinner";
 
 const Container = styled.div`
-  position: relative;
   width: 100%;
   height: 100%;
 `;
-const Story = React.forwardRef(({ story, children, setPause }, ref) => {
-  const [loading, setLoading] = useState(true);
+const Story = ({ story, toggleLoading, isLoading }) => {
   useEffect(() => {
-    setLoading(true);
-    setPause(true);
+    toggleLoading(true);
   }, [story]);
   return (
-    <Container ref={ref}>
-      {children}
-      {loading && <Spinner />}
+    <Container>
+      {isLoading && <Spinner />}
       <ProgressiveImg
-        story={story}
-        callback={() => {
-          setLoading(false);
-          setPause(false);
-        }}
+        preview={story.preview}
+        src={story.src}
+        callback={() => toggleLoading(false)}
+        isLoading={isLoading}
       />
     </Container>
   );
-});
+};
 
 export default Story;

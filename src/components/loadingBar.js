@@ -1,42 +1,32 @@
-import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 
-const BarContainer = styled.div`
-  width: 100px;
-  height: 8px;
-  background-color: gray;
-`;
+const handleProgress = (activeState, progress) => {
+  switch (activeState) {
+    case 1:
+      return progress;
 
-const Bar = styled.div`
-  height: 100%;
-  width: ${({ progress }) => progress + "%"};
+    case 2:
+      return 100;
+
+    case 0:
+      return 0;
+
+    default:
+      return 0;
+  }
+};
+
+export const LoadBar = styled.div.attrs(({ progress, activeState }) => ({
+  style: {
+    width: handleProgress(activeState, progress) + "%",
+  },
+}))`
+  height: 2px;
   background-color: white;
-  transition: width 1s linear;
+  max-width: 100%;
 `;
 
-export default function LoadingBar({ isLoading, isPaused, active, seen }) {
-  const [progress, setProgress] = useState(seen ? 100 : 0);
-  const tmout = useRef();
-  useEffect(() => {
-    if (active) {
-      if (isLoading) return;
-      if (isPaused) {
-        if (tmout.current !== null) return clearTimeout(tmout.current);
-        else return;
-      }
-      if (progress + 20 <= 100) {
-        tmout.current = setTimeout(() => {
-          setProgress(progress + 20);
-        }, 1000);
-      }
-      return () => {
-        clearTimeout(tmout);
-      };
-    }
-  }, [progress, isLoading, isPaused, active]);
-  return (
-    <BarContainer>
-      <Bar progress={progress} />
-    </BarContainer>
-  );
-}
+export const LoadBarWrapper = styled.div`
+  flex: ${({ width }) => width};
+  background: rgba(255, 255, 255, 0.35);
+`;

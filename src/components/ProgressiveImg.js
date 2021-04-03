@@ -11,8 +11,7 @@ const StyledImg = styled.img`
   max-height: 100%;
 `;
 
-export default function ProgressiveImg({ story, callback }) {
-  const { preview, src } = story;
+export default function ProgressiveImg({ preview, src, callback }) {
   const [srcAct, { blur }] = useProgressiveImg(preview, src, callback);
   return <StyledImg src={srcAct} blur={blur} />;
 }

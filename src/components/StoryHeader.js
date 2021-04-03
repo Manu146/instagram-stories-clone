@@ -5,20 +5,23 @@ const Wrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  margin-top: 0.5rem;
   color: white;
+  width: 100%;
+  padding: 1rem;
+  z-index: 5;
+`;
+
+const FlexContainer = styled.div`
   display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  z-index: 3;
+  padding: 0 0.25rem;
 `;
 
 const UserImg = styled.img`
   border-radius: 50%;
   border: 1px solid #dedede;
-  width: 3rem;
-  height: 3rem;
-  margin-right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
   background-color: #dedede;
 `;
 
@@ -26,11 +29,20 @@ const UserName = styled.span`
   color: inherit;
 `;
 
-export default function StoryHeader({ user }) {
+const UserInfoWrapper = styled.div`
+  display: flex;
+`;
+
+export default function StoryHeader({ user, children }) {
   return (
     <Wrapper>
-      <UserImg src={user.userImg} alt="a"></UserImg>
-      <UserName>{user.username}</UserName>
+      {children}
+      <FlexContainer>
+        <UserInfoWrapper>
+          <UserImg src={user.userImg} alt="a"></UserImg>
+          <UserName>{user.username}</UserName>
+        </UserInfoWrapper>
+      </FlexContainer>
     </Wrapper>
   );
 }

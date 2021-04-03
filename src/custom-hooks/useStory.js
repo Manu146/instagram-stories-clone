@@ -24,7 +24,7 @@ const reducerWrapper = (nOfStories) => {
         return { ...state, isPaused: !state.isPaused };
 
       case "TOGGLE_LOADING":
-        return { ...state, isLoading: !state.isLoading };
+        return { ...state, isLoading: action.payload };
 
       default:
         throw new Error("Action type not defined.");

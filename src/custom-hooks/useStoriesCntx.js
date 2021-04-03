@@ -1,7 +1,6 @@
 import { useContext } from "react";
-import { StoriesContex } from "../contexts/StoriesContext";
+import { StoriesContext } from "../contexts/StoriesContext";
 
 export default function useStoriesCntx() {
-  const context = useContext(StoriesContex);
-  return context;
+  return useContext(StoriesContext);
 }
