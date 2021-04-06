@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import "./App.css";
 import StoriesList from "./components/StoriesList";
@@ -67,7 +67,7 @@ function App() {
                 <GitLogo src="./github-logo.png" alt="github logo" />
                 <span>Link to github repo</span>
                 <p>
-                  Made with <i class="material-icons heart">favorite</i> by
+                  Made with <i className="material-icons heart">favorite</i> by
                   Manu146
                 </p>
               </GitLink>

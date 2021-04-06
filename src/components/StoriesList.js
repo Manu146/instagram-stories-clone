@@ -85,7 +85,7 @@ export default function StoriesList() {
   const sliderRef = useRef();
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(0);
-  const { setUser, isFetching } = useStoriesCntx();
+  const { setUser, isOpen } = useStoriesCntx();
   useEffect(() => {
     setPages(Math.ceil((users.length * 76) / sliderRef.current.offsetWidth));
   }, []);
@@ -103,12 +103,12 @@ export default function StoriesList() {
         handleOnclck={() => setPage(page - 1)}
       ></Arrow>
       <UserList ref={sliderRef} translate={translate}>
-        {users.map((user) => (
-          <UserItem key={user.id}>
+        {users.map((userStory) => (
+          <UserItem key={userStory.id}>
             <UserStories
-              setUser={() => setUser(user)}
-              user={user}
-              animated={isFetching}
+              setUser={() => setUser(userStory)}
+              user={userStory}
+              isOpen={isOpen}
             ></UserStories>
           </UserItem>
         ))}

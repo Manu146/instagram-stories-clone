@@ -1,25 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-//import
-
-/*const NoAnimation = css`
-  background: linear-gradient(
-    36deg,
-    rgba(254, 218, 119, 1) 5%,
-    rgba(245, 133, 41, 1) 32%,
-    rgba(221, 42, 123, 1) 62%,
-    rgba(129, 52, 175, 1) 100%
-  );
-  animation: none;
-`;*/
 
 const strokeDraw = keyframes`
-  from {
+  0% {
     stroke: #8a3ab9;
+    transform: rotate(0deg);
     stroke-dasharray: 1;
   }
-  to {
+  25% {
     stroke: #cd486b;
+  }
+  50%{
+    stroke: rgba(245, 133, 41, 1);
+  }
+  100%{
+    stroke: rgba(254, 218, 119, 1);
     transform: rotate(180deg);
     stroke-dasharray: 8;
   }
@@ -34,7 +29,6 @@ const Wrapper = styled.button`
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  //background: rgb(254, 218, 119);
   & svg {
     fill: none;
     stroke: #8a3ab9;
@@ -63,16 +57,19 @@ const Name = styled.span`
   font-size: 0.75rem;
 `;
 
-export default function UserStories({ user, setUser, animated }) {
+export default function UserStories({ user, setUser, isOpen }) {
   const [clicked, setClicked] = useState(false);
+  useEffect(() => {
+    setClicked(false);
+  }, [isOpen]);
   return (
     <>
       <Wrapper
         onClick={() => {
           setUser();
-          setClicked(!clicked);
+          setClicked(true);
         }}
-        animated={clicked && animated}
+        animated={clicked && !isOpen}
       >
         <UserImg src={user.userImg} alt="" />
         <svg

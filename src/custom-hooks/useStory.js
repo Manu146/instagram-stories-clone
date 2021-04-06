@@ -11,14 +11,21 @@ const reducerWrapper = (nOfStories) => {
     switch (action.type) {
       case "NEXT_STORY":
         if (state.currentIndex + 1 < nOfStories)
-          return { ...state, currentIndex: state.currentIndex + 1 };
-        else return { ...state, currentIndex: 0 };
-        break;
+          return {
+            ...state,
+            isLoading: true,
+            currentIndex: state.currentIndex + 1,
+          };
+        else return { ...state, isLoading: true, currentIndex: 0 };
 
       case "PREV_STORY":
         if (state.currentIndex - 1 >= 0)
-          return { ...state, currentIndex: state.currentIndex - 1 };
-        break;
+          return {
+            ...state,
+            isLoading: true,
+            currentIndex: state.currentIndex - 1,
+          };
+        else return state;
 
       case "TOGGLE_PAUSE":
         return { ...state, isPaused: !state.isPaused };

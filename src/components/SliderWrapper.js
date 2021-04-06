@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import useStoriesCntx from "../custom-hooks/useStoriesCntx";
 import StorySlider from "./StorySlider";
@@ -15,14 +15,19 @@ const BlurredContainer = styled.div`
 `;
 
 export default function SliderWrapper() {
-  const { stories, isFetching, setUser, user } = useStoriesCntx();
-  const open = !isFetching && Object.keys(stories).length > 0;
-
-  if (open) {
+  const { stories, setUser, setOpen, isOpen, user } = useStoriesCntx();
+  if (isOpen) {
     return (
       <>
         <BlurredContainer />
-        <StorySlider stories={stories[user.username]} user={user} />
+        <StorySlider
+          stories={stories[user.username]}
+          user={user}
+          closeFn={() => {
+            setOpen(false);
+            setUser({});
+          }}
+        />
       </>
     );
   } else return <></>;

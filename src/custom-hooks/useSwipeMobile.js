@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useEventListener from "./useEventListener";
 
-export default function useSwipeMobile(elementRef, callback) {
+export default function useSwipeMobile(elementRef, callbacks) {
   const [xStart, setXStart] = useState();
   const [xEnd, setXEnd] = useState();
   const [touchEnded, setEnded] = useState(false);
@@ -37,8 +37,8 @@ export default function useSwipeMobile(elementRef, callback) {
       let dx = xEnd - xStart;
       let sign = Math.sign(dx);
 
-      if (sign === 1) callback[0](); //Swipe right
-      if (sign === -1) callback[1](); //Swipe left
+      if (sign === 1) callbacks[0](); //Swipe right
+      if (sign === -1) callbacks[1](); //Swipe left
       setXStart(null);
       setXEnd(null);
       setEnded(false);

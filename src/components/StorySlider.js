@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import Story from "./Story";
-//import LoadingBar from "./LoadingBar";
+import { ReactComponent as LeftArrow } from "../svgs/arrow-left.svg";
+import { ReactComponent as RightArrow } from "../svgs/arrow-right.svg";
+import { ReactComponent as CloseIcon } from "../svgs/close.svg";
 import LoadingBarArray from "./LoadingBarArray";
-import useEventListener from "../custom-hooks/useEventListener";
 import useSwipeMobile from "../custom-hooks/useSwipeMobile";
+import StoryFooter from "./StoryFooter";
+import ReplyForm from "./ReplyForm";
 import StoryHeader from "./StoryHeader";
 import useStory from "../custom-hooks/useStory";
 
@@ -15,41 +18,44 @@ const Wrapper = styled.div`
   transform: translate(-50%, -40%);
   left: 50%;
   transform: translateX();
-  //background-color: rgba(84, 84, 84, 0.7);
 `;
 
 const StoryContainer = styled.div`
   border-radius: 8px;
-  height: 95vh;
-  width: calc(0.5625 * 95vh);
+  height: 100vh;
+  width: calc(0.5625 * 100vh);
+  @media (min-width: 481px) {
+    height: 95vh;
+    width: calc(0.5625 * 95vh);
+  }
   background-color: #3b3b3b;
   margin: 0 auto;
   position: relative;
-  overflow: hidden;
 `;
 
 const ArrowContainer = styled.button`
   position: absolute;
-  ${(props) => (props.dir === "left" ? "left: 0.25rem" : "right: 0.25rem")};
-  top: calc(50% - 0.75rem);
-  background-color: #dedede;
-  color: rgba(84, 84, 84, 0.7);
+  display: none;
+  ${(props) => (props.dir === "left" ? "left: -2.5rem" : "right: -2.5rem")};
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(84, 84, 84, 0.7);
   border-radius: 50%;
   max-width: 24px;
   max-height: 24px;
   border: none;
   padding: 0;
-  z-index: 3;
   cursor: pointer;
   @media (min-width: 640px) {
-    ${(props) => (props.dir === "left" ? "left: -2.5rem" : "right: -2.5rem")};
+    display: block;
   }
 `;
 
 const CloseButton = styled.button`
   position: absolute;
-  top: 0.5rem;
-  right: 0.25rem;
+  z-index: 5;
+  top: 1rem;
+  right: 0.5rem;
   color: #dedede;
   font-size: 2rem;
   border: none;
@@ -62,41 +68,53 @@ const CloseButton = styled.button`
   }
 `;
 
-function Arrow({ dir, onClick }) {
-  return (
-    <ArrowContainer onClick={onClick} dir={dir}>
-      <i className="material-icons">
-        {dir === "left" ? "navigate_before" : "navigate_next"}
-      </i>
-    </ArrowContainer>
-  );
-}
-
-export default function StorySlider({ stories, user }) {
+export default function StorySlider({ stories, user, closeFn }) {
   const [state, dispatch] = useStory(stories.length);
+  const storyRef = useRef();
+  useSwipeMobile(storyRef, [
+    () => dispatch({ type: "NEXT_STORY" }),
+    () => dispatch({ type: "PREV_STORY" }),
+  ]);
   const currentStory = stories[state.currentIndex];
   return (
     <Wrapper>
-      <StoryContainer>
+      <StoryContainer ref={storyRef}>
         <StoryHeader user={user}>
           <LoadingBarArray
             currentIndex={state.currentIndex}
             endCallback={() => dispatch({ type: "NEXT_STORY" })}
             stories={stories}
             isPaused={state.isPaused}
+            isLoading={state.isLoading}
             duration={currentStory.duration || 5000}
           />
         </StoryHeader>
-        <CloseButton className="material-icons">close</CloseButton>
-        <Arrow dir="left" onClick={() => dispatch({ type: "PREV_STORY" })} />
-        <Arrow dir="right" onClick={() => dispatch({ type: "NEXT_STORY" })} />
+        <CloseButton onClick={closeFn}>
+          <CloseIcon />
+        </CloseButton>
+        <ArrowContainer
+          dir="left"
+          onClick={() => dispatch({ type: "PREV_STORY" })}
+        >
+          <LeftArrow />
+        </ArrowContainer>
+        <ArrowContainer
+          dir="right"
+          onClick={() => dispatch({ type: "NEXT_STORY" })}
+        >
+          <RightArrow />
+        </ArrowContainer>
         <Story
           story={currentStory}
           toggleLoading={(payload) =>
             dispatch({ type: "TOGGLE_LOADING", payload: payload })
           }
           isLoading={state.isLoading}
+          handleMouseEvnts={() => dispatch({ type: "TOGGLE_PAUSE" })}
         />
+        <StoryFooter>
+          <ReplyForm handleOnFocus={() => dispatch({ type: "TOGGLE_PAUSE" })} />
+        </StoryFooter>
       </StoryContainer>
     </Wrapper>
   );

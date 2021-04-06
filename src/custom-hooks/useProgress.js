@@ -4,7 +4,8 @@ export default function useProgress(
   currentIndex,
   duration = 4000,
   endCallBack,
-  isPaused
+  isPaused,
+  isLoading
 ) {
   const [progress, setProgress] = useState(0);
   const animationId = useRef(null);
@@ -25,17 +26,20 @@ export default function useProgress(
       }
     };
 
-    if (!isPaused)
+    if (isPaused || isLoading) {
+      cancelAnimationFrame(animationId.current);
+    } else {
       animationId.current = requestAnimationFrame(incrementProgress);
+    }
 
     return () => {
       cancelAnimationFrame(animationId.current);
     };
-  }, [isPaused, duration, currentIndex]);
+  }, [isPaused, isLoading, duration, currentIndex]);
 
-  /*useEffect(() => { This generates a bug, the bars blink at 100% for a moment and then fall to 0% on currentindex change
+  useEffect(() => {
     setProgress(0);
-  }, [currentIndex]);*/
+  }, [currentIndex]);
 
   return progress;
 }

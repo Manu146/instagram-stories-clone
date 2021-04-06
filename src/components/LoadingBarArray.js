@@ -21,14 +21,21 @@ export default function LoadingBarArray({
   currentIndex,
   endCallback,
   isPaused,
+  isLoading,
   duration,
 }) {
-  const progress = useProgress(currentIndex, duration, endCallback, isPaused);
+  const progress = useProgress(
+    currentIndex,
+    duration,
+    endCallback,
+    isPaused,
+    isLoading
+  );
 
   let bars = stories.map((_, index) => {
     let activeState = index === currentIndex ? 1 : index < currentIndex ? 2 : 0;
     return (
-      <LoadBarWrapper width={1 / stories.length}>
+      <LoadBarWrapper width={1 / stories.length} key={index}>
         <LoadBar
           activeState={activeState}
           progress={activeState === 1 ? progress : 0}
